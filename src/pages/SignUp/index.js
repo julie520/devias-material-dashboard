@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link as RouterLink, withRouter } from "react-router-dom";
 import validate from "validate.js";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles } from "./sign-up.styles";
 import {
   Grid,
   Typography,
@@ -15,108 +15,7 @@ import {
 } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Minimal from "../../layouts/Minimal";
-
-const schema = {
-  firstName: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 32
-    }
-  }
-};
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: theme.palette.background.default,
-    height: "100%"
-  },
-  grid: {
-    height: "100%"
-  },
-  quoteContainer: {
-    [theme.breakpoints.down("md")]: {
-      display: "none"
-    }
-  },
-  quote: {
-    backgroundColor: theme.palette.neutral,
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundImage: "url(/images/signup.jpg)",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center"
-  },
-  quoteInner: {
-    textAlign: "center",
-    flexBasis: "600px"
-  },
-  quoteText: {
-    color: theme.palette.white,
-    fontWeight: 300
-  },
-  name: {
-    marginTop: theme.spacing(3),
-    color: theme.palette.white
-  },
-  bio: {
-    color: theme.palette.white
-  },
-  contentContainer: {},
-  content: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column"
-  },
-  contentHeader: {
-    display: "flex",
-    alignItems: "center",
-    paddingTop: theme.spacing(0),
-    paddingBottom: theme.spacing(0),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2)
-  },
-  logoImage: {
-    marginLeft: theme.spacing(4)
-  },
-  contentBody: {
-    flexGrow: 1,
-    display: "flex",
-    alignItems: "center",
-    [theme.breakpoints.down("md")]: {
-      justifyContent: "center"
-    }
-  },
-  form: {
-    paddingLeft: 100,
-    paddingRight: 100,
-    paddingBottom: 125,
-    flexBasis: 700,
-    [theme.breakpoints.down("sm")]: {
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2)
-    }
-  },
-  title: {
-    marginTop: theme.spacing(0)
-  },
-  textField: {
-    marginTop: theme.spacing(2)
-  },
-  policy: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    alignItems: "center"
-  },
-  policyCheckbox: {
-    marginLeft: "-14px"
-  },
-  signUpButton: {
-    margin: theme.spacing(2, 0)
-  }
-}));
+import { schema } from "./sign-up.validiate";
 
 const SignUp = props => {
   const { history } = props;
@@ -138,7 +37,7 @@ const SignUp = props => {
     }));
   }, [formState.values]);
 
-  const handlChange = event => {
+  const handleChange = event => {
     event.persist();
 
     setFormState(formState => ({
@@ -217,7 +116,7 @@ const SignUp = props => {
                     }
                     label="First name"
                     name="firstName"
-                    onChange={handlChange}
+                    onChange={handleChange}
                     type="text"
                     value={formState.values.firstName || ""}
                     variant="outlined"
@@ -231,7 +130,7 @@ const SignUp = props => {
                     }
                     label="Last name"
                     name="lastName"
-                    onChange={handlChange}
+                    onChange={handleChange}
                     type="text"
                     value={formState.values.lastName || ""}
                     variant="outlined"
@@ -245,7 +144,7 @@ const SignUp = props => {
                     }
                     label="Email address"
                     name="email"
-                    onChange={handlChange}
+                    onChange={handleChange}
                     type="text"
                     value={formState.values.email || ""}
                     variant="outlined"
@@ -259,7 +158,7 @@ const SignUp = props => {
                     }
                     label="Password"
                     name="password"
-                    onChange={handlChange}
+                    onChange={handleChange}
                     type="password"
                     value={formState.values.password || ""}
                     variant="outlined"
@@ -270,7 +169,7 @@ const SignUp = props => {
                       className={classes.policyCheckbox}
                       color="primary"
                       name="policy"
-                      onChange={handlChange}
+                      onChange={handleChange}
                     />
                     <Typography
                       className={classes.policyText}

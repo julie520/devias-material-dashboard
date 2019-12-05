@@ -1,8 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import { createBrowserHistory } from "history";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+// core components
+import Auth from "./layouts/Auth";
 
-serviceWorker.unregister();
+const history = createBrowserHistory();
+
+ReactDOM.render(
+  <Router history={history}>
+    <Switch>
+      <Route path="/auth" component={Auth} />
+      <Redirect from="/" to="/auth/login-page" />
+    </Switch>
+  </Router>,
+  document.getElementById("root")
+);
